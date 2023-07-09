@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { getDocs, collection, deleteDoc, doc } from "firebase/firestore";
 import { auth, db } from "../Firebase";
@@ -23,7 +24,9 @@ const Home = ({isAuth}) => {
   return (
     <div className="homePage">
       {postLists.map((post) => {
-        console.log(post.author.name)
+        if (post.author && post.author.name !== null) {
+          console.log(post.author.name);
+        }
         return (
           <div className="post" >
             <div className="postHeader">
@@ -45,7 +48,9 @@ const Home = ({isAuth}) => {
               </div>
             </div>
             <div className="postTextContainer"> {post.postText} </div>
-            <h3>@{post.author.name}</h3>
+            {post.author && post.author.name && (
+          <h3>@{post.author.name}</h3>
+        )}
           </div>
         );
       })}
